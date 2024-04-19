@@ -29,13 +29,12 @@ const elements = {
   themeSwitch: document.getElementById("label-checkbox-theme"),
   createNewTaskBtn: document.getElementById("create-task-btn"),
   modalWindow: document.getElementsByClassName("modal-window"), 
-
 }
 
 let activeBoard = ""
 
 // Extracts unique board names from tasks
-// TASK: FIX BUGS
+// TASK: FIX BUGS: ternary operator fix
 function fetchAndDisplayBoardsAndTasks() {
   const tasks = getTasks();
   const boards = [...new Set(tasks.map(task => task.board).filter(Boolean))];
@@ -58,13 +57,13 @@ function displayBoards(boards) {
     const boardElement = document.createElement("button");
     boardElement.textContent = board;
     boardElement.classList.add("board-btn");
-    boardElement.click()  { 
+    boardElement.addEventListener('click', function()  { 
       elements.headerBoardName.textContent = board;
       filterAndDisplayTasksByBoard(board);
       activeBoard = board //assigns active board
       localStorage.setItem("activeBoard", JSON.stringify(activeBoard))
       styleActiveBoard(activeBoard)
-    };
+    });
     boardsContainer.appendChild(boardElement);
   });
 
