@@ -21,14 +21,14 @@ function initializeData() {
 // TASK: Get elements from the DOM
 const elements = {
   headerBoardName: document.getElementById("header-board-name"),
-  // columnDivs: document.getElementById(""),
-  // editTaskModal: 
-  // filterDiv:
-  // hideSideBarBtn:
-  // showSideBarBtn:
-  // themeSwitch:
-  // createNewTaskBtn:
-  // modalWindow:
+  columnDivs: document.getElementsByClassName("column-div"),
+  editTaskModal: document.getElementsByClassName("edit-task-modal-window"),
+  filterDiv: document.getElementById("filterDiv"),
+  hideSideBarBtn: document.getElementById("hide-side-bar-btn"),
+  showSideBarBtn: document.getElementById("show-side-bar-btn"),
+  themeSwitch: document.getElementById("label-checkbox-theme"),
+  createNewTaskBtn: document.getElementById("create-task-btn"),
+  modalWindow: document.getElementsByClassName("modal-window"), 
 
 }
 
