@@ -89,7 +89,7 @@ function filterAndDisplayTasksByBoard(boardName) {
     const columnTitle = columnTitles[status];
     column.innerHTML = `<div class="column-head-div">
                           <span class="dot" id="${status}-dot"></span>
-                          <h4 class="columnHeader">${status.toUpperCase()}</h4>
+                          <h4 class="columnHeader">${columnTitle.toUpperCase()}</h4>
                         </div>`;
 
     const tasksContainer = document.createElement("div");
