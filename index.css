@@ -807,7 +807,7 @@ input:checked + #label-checkbox-theme:after {
         width: 450px;
     } */
 
-  /* .side-bar.show-sidebar {
+  .side-bar.show-sidebar {
     display: none !important;
   }
 
@@ -818,7 +818,7 @@ input:checked + #label-checkbox-theme:after {
 
   #header-board-name {
     font-size: 12px;
-  } */
+  }
 
   .side-bar.show-sidebar {
     position: fixed;

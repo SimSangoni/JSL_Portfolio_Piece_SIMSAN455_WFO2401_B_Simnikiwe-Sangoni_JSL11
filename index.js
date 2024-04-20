@@ -1,7 +1,7 @@
 // TASK: import helper functions from utils
-import { getTasks, createNewTask, patchTask, putTask, deleteTask } from "./utils/taskFunctions";
+import { getTasks, createNewTask, patchTask, putTask, deleteTask } from "./utils/taskFunctions.js";
 // TASK: import initialData
-import { initialData } from "./initialData";
+import { initialData } from "./initialData.js"; 
 
 
 /*************************************************************************************************************************************************
@@ -18,17 +18,19 @@ function initializeData() {
   }
 }
 
+initializeData();
+
 // TASK: Get elements from the DOM
 const elements = {
   headerBoardName: document.getElementById("header-board-name"),
-  columnDivs: document.getElementsByClassName("column-div"),
-  editTaskModal: document.getElementsByClassName("edit-task-modal-window"),
+  columnDivs: document.querySelectorAll(".column-div"),
+  editTaskModal: document.querySelector(".edit-task-modal-window"),
   filterDiv: document.getElementById("filterDiv"),
   hideSideBarBtn: document.getElementById("hide-side-bar-btn"),
   showSideBarBtn: document.getElementById("show-side-bar-btn"),
   themeSwitch: document.getElementById("label-checkbox-theme"),
   createNewTaskBtn: document.getElementById("create-task-btn"),
-  modalWindow: document.getElementsByClassName("modal-window"), 
+  modalWindow: document.querySelector(".modal-window"), 
 }
 
 let activeBoard = ""
@@ -189,7 +191,7 @@ function setupEventListeners() {
   });
 
   // Add new task form submission event listener
-  elements.modalWindow.addEventListener('submit',  (event) => {
+  elements.modalWindow.addEventListener('submit', (event) => {
     addTask(event)
   });
 }
@@ -209,6 +211,7 @@ function addTask(event) {
 
   //Assign user input to the task object
     const task = {
+
       
     };
     const newTask = createNewTask(task);
@@ -223,6 +226,12 @@ function addTask(event) {
 
 
 function toggleSidebar(show) {
+  const sidebar = document.getElementById('side-bar-div');
+  if (show) {
+    sidebar.style.display = 'block';
+  } else {
+    sidebar.style.display = 'none';
+  }
  
 }
 
