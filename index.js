@@ -217,6 +217,7 @@ function addTask(event) {
   const boardName = elements.headerBoardName.textContent;
 
     const task = {
+
       title: titleInput,
       description: descriptionInput,
       status: statusInput,
@@ -275,15 +276,17 @@ function openEditTaskModal(task) {
 
   // Call saveTaskChanges upon click of Save Changes button
   saveChangesBtn.addEventListener('click', () => {
-    
+    toggleModal(false, elements.editTaskModal);
+    refreshTasksUI();
   });
 
   // Delete task using a helper function and close the task modal
   deleteTaskBtn.addEventListener('click', () => {
     deleteTask(task.id);
     toggleModal(false, elements.editTaskModal);
+    refreshTasksUI();
   });
-
+  
   toggleModal(true, elements.editTaskModal); // Show the edit task modal
 }
 
@@ -315,16 +318,6 @@ function saveTaskChanges(taskId) {
   refreshTasksUI();
 }
 
-
-// if (localStorage.getItem('tasks')) {
-//   // Remove data from localStorage
-//   localStorage.removeItem('tasks');
-//   localStorage.removeItem('showSideBar');
-  
-//   console.log('Data removed from localStorage');
-// } else {
-//   console.log('No data exists in localStorage');
-// }
 
 /*************************************************************************************************************************************************/
 
