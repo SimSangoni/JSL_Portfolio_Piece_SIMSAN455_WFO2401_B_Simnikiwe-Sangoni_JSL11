@@ -243,7 +243,10 @@ function toggleSidebar(show) {
 }
 
 function toggleTheme() {
-
+  // Check the current state of the theme switch
+  const isLightTheme = elements.themeSwitch.checked;
+  
+    
  
 }
 
