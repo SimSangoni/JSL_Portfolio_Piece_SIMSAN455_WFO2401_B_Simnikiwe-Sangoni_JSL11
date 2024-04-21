@@ -340,3 +340,8 @@ function init() {
   document.body.classList.toggle('light-theme', isLightTheme);
   fetchAndDisplayBoardsAndTasks(); // Initial display of boards and tasks
 }
+
+const tasksString = localStorage.getItem('tasks');
+const tasksArray = JSON.parse(tasksString);
+
+console.log(tasksArray);
