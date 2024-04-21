@@ -121,7 +121,6 @@ function refreshTasksUI() {
 // Styles the active board by adding an active class
 // TASK: Fix Bugs
 function styleActiveBoard(boardName) {
-  // Does this need to be edited?
   document.querySelectorAll('.board-btn').forEach(btn => { 
     
     if(btn.textContent === boardName) {
@@ -226,16 +225,16 @@ function addTask(event) {
 
 
 function toggleSidebar(show) {
-  const sidebar = document.getElementById('side-bar-div');
-  if (show) {
-    sidebar.style.display = 'block';
-  } else {
-    sidebar.style.display = 'none';
-  }
+  // if (show) {
+  //   sidebar.style.display = 'block';
+  // } else {
+  //   sidebar.style.display = 'none';
+  // }
  
 }
 
 function toggleTheme() {
+
  
 }
 
@@ -246,6 +245,8 @@ function openEditTaskModal(task) {
   
 
   // Get button elements from the task modal
+  const saveChangesBtn = document.getElementById('save-task-changes-btn');
+  const deleteTaskBtn = document.getElementById('delete-task-btn');
 
 
   // Call saveTaskChanges upon click of Save Changes button
