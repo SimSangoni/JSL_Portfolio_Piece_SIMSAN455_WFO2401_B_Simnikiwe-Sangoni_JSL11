@@ -29,7 +29,7 @@ const elements = {
   hideSideBarBtn: document.getElementById("hide-side-bar-btn"),
   showSideBarBtn: document.getElementById("show-side-bar-btn"),
   themeSwitch: document.getElementById("label-checkbox-theme"),
-  createNewTaskBtn: document.getElementById("create-task-btn"),
+  createNewTaskBtn: document.getElementById("add-new-task-btn"),
   modalWindow: document.querySelector(".modal-window"), 
 }
 
@@ -209,9 +209,15 @@ function addTask(event) {
   event.preventDefault(); 
 
   //Assign user input to the task object
-    const task = {
 
-      
+  const titleInput = document.getElementById('title-input').value;
+  const descriptionInput = document.getElementById('desc-input').value;
+  const statusInput = document.getElementById('select-status').value;
+
+    const task = {
+      title: titleInput,
+      description: descriptionInput,
+      status: statusInput
     };
     const newTask = createNewTask(task);
     if (newTask) {
@@ -273,7 +279,7 @@ function saveTaskChanges(taskId) {
   // Get new user inputs
   const titleInput = document.getElementById('edit-task-title-input');
   const descriptionInput = document.getElementById('edit-task-description');
-  const statusSelect = document.getElementById('select-status');
+  // const statusSelect = document.getElementById('select-status');
 
 
   // Create an object with the updated task details
@@ -296,6 +302,17 @@ function saveTaskChanges(taskId) {
   toggleModal(false, elements.editTaskModal);
   refreshTasksUI();
 }
+
+
+// if (localStorage.getItem('tasks')) {
+//   // Remove data from localStorage
+//   localStorage.removeItem('tasks');
+//   localStorage.removeItem('showSideBar');
+  
+//   console.log('Data removed from localStorage');
+// } else {
+//   console.log('No data exists in localStorage');
+// }
 
 /*************************************************************************************************************************************************/
 
