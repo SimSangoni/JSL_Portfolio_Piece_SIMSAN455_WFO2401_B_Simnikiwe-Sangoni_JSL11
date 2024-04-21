@@ -245,7 +245,7 @@ function openEditTaskModal(task) {
   const titleInput = document.getElementById('title-input');
   const descriptionInput = document.getElementById('desc-input');
   const statusSelect = document.getElementById('select-status');
-
+// Come back to revise this section
   titleInput.value = task.title;
   descriptionInput.value = task.description;
   statusSelect.value = task.status;
@@ -261,14 +261,19 @@ function openEditTaskModal(task) {
   });
 
   // Delete task using a helper function and close the task modal
-
+  deleteTaskBtn.addEventListener('click', () => {
+    deleteTask(task.id);
+    toggleModal(false, elements.editTaskModal);
+  });
 
   toggleModal(true, elements.editTaskModal); // Show the edit task modal
 }
 
 function saveTaskChanges(taskId) {
   // Get new user inputs
-  
+  const titleInput = document.getElementById('edit-task-title-input');
+  const descriptionInput = document.getElementById('edit-task-description');
+  const statusSelect = document.getElementById('select-status');
 
   // Create an object with the updated task details
 
