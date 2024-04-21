@@ -245,8 +245,10 @@ function toggleSidebar(show) {
 function toggleTheme() {
   // Check the current state of the theme switch
   const isLightTheme = elements.themeSwitch.checked;
-  
-    
+
+  localStorage.setItem('light-theme', isLightTheme ? 'enabled' : 'disabled');
+
+  document.body.classList.toggle('light-theme', isLightTheme);
  
 }
 
