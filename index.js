@@ -276,6 +276,7 @@ function openEditTaskModal(task) {
 
   // Call saveTaskChanges upon click of Save Changes button
   saveChangesBtn.addEventListener('click', () => {
+    saveTaskChanges(taskId)
     toggleModal(false, elements.editTaskModal);
     refreshTasksUI();
   });
