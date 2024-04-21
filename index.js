@@ -210,15 +210,15 @@ function addTask(event) {
 
   //Assign user input to the task object
 
-  const titleInput = document.getElementById('title-input').value;
-  const descriptionInput = document.getElementById('desc-input').value;
-  const statusInput = document.getElementById('select-status').value;
+  // const titleInput = document.getElementById('title-input').value;
+  // const descriptionInput = document.getElementById('desc-input').value;
+  // const statusInput = document.getElementById('select-status').value;
 
-    const task = {
-      title: titleInput,
-      description: descriptionInput,
-      status: statusInput
-    };
+  //   const task = {
+  //     title: titleInput,
+  //     description: descriptionInput,
+  //     status: statusInput
+  //   };
     const newTask = createNewTask(task);
     if (newTask) {
       addTaskToUI(newTask);
@@ -231,11 +231,12 @@ function addTask(event) {
 
 
 function toggleSidebar(show) {
-  // if (show) {
-  //   sidebar.style.display = 'block';
-  // } else {
-  //   sidebar.style.display = 'none';
-  // }
+  const sidebar = document.getElementById('side-bar-div');
+  if (show) {
+    sidebar.style.display = 'block';
+  } else {
+    sidebar.style.display = 'none';
+  }
  
 }
 
@@ -248,13 +249,13 @@ function toggleTheme() {
 
 function openEditTaskModal(task) {
   // Set task details in modal inputs
-  const titleInput = document.getElementById('title-input');
-  const descriptionInput = document.getElementById('desc-input');
-  const statusSelect = document.getElementById('select-status');
+  // const titleInput = document.getElementById('title-input');
+  // const descriptionInput = document.getElementById('desc-input');
+  // const statusSelect = document.getElementById('select-status');
 // Come back to revise this section
-  titleInput.value = task.title;
-  descriptionInput.value = task.description;
-  statusSelect.value = task.status;
+  // titleInput.value = task.title;
+  // descriptionInput.value = task.description;
+  // statusSelect.value = task.status;
 
   // Get button elements from the task modal
   const saveChangesBtn = document.getElementById('save-task-changes-btn');
@@ -277,26 +278,26 @@ function openEditTaskModal(task) {
 
 function saveTaskChanges(taskId) {
   // Get new user inputs
-  const titleInput = document.getElementById('edit-task-title-input');
-  const descriptionInput = document.getElementById('edit-task-description');
+  // const titleInput = document.getElementById('edit-task-title-input');
+  // const descriptionInput = document.getElementById('edit-task-description');
   // const statusSelect = document.getElementById('select-status');
 
 
   // Create an object with the updated task details
-  const updatedTitle = titleInput.value;
-  const updatedDescription = descriptionInput.value;
-  const updatedStatus = statusInput.value;
+  // const updatedTitle = titleInput.value;
+  // const updatedDescription = descriptionInput.value;
+  // const updatedStatus = statusInput.value;
 
-  const updatedTask = {
-    id: taskId,
-    title: updatedTitle,
-    description: updatedDescription,
-    status: updatedStatus
-  }; 
+  // const updatedTask = {
+  //   id: taskId,
+  //   title: updatedTitle,
+  //   description: updatedDescription,
+  //   status: updatedStatus
+  // }; 
   
 
   // Update task using a hlper functoin
-  putTask(taskId, updatedTask);
+  // putTask(taskId, updatedTask);
 
   // Close the modal and refresh the UI to reflect the changes
   toggleModal(false, elements.editTaskModal);
