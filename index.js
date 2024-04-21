@@ -246,6 +246,10 @@ function openEditTaskModal(task) {
   const descriptionInput = document.getElementById('desc-input');
   const statusSelect = document.getElementById('select-status');
 
+  titleInput.value = task.title;
+  descriptionInput.value = task.description;
+  statusSelect.value = task.status;
+
   // Get button elements from the task modal
   const saveChangesBtn = document.getElementById('save-task-changes-btn');
   const deleteTaskBtn = document.getElementById('delete-task-btn');
