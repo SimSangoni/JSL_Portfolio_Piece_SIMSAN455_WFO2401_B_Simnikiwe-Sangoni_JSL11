@@ -30,7 +30,7 @@ const elements = {
   showSideBarBtn: document.getElementById("show-side-bar-btn"),
   themeSwitch: document.getElementById("switch"),
   createNewTaskBtn: document.getElementById("add-new-task-btn"),
-  modalWindow: document.querySelector(".modal-window"), 
+  modalWindow: document.getElementById("new-task-modal-window"), 
 }
 
 let activeBoard = ""
@@ -210,15 +210,19 @@ function addTask(event) {
 
   //Assign user input to the task object
 
-  // const titleInput = document.getElementById('title-input').value;
-  // const descriptionInput = document.getElementById('desc-input').value;
-  // const statusInput = document.getElementById('select-status').value;
+  const titleInput = document.getElementById('title-input').value;
+  const descriptionInput = document.getElementById('desc-input').value;
+  const statusInput = document.getElementById('select-status').value;
 
-  //   const task = {
-  //     title: titleInput,
-  //     description: descriptionInput,
-  //     status: statusInput
-  //   };
+  const boardName = elements.headerBoardName.textContent;
+
+    const task = {
+      title: titleInput,
+      description: descriptionInput,
+      status: statusInput,
+      board: boardName
+    };
+
     const newTask = createNewTask(task);
     if (newTask) {
       addTaskToUI(newTask);
