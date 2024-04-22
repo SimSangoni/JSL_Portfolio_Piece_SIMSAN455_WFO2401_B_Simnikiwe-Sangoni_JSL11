@@ -33,6 +33,8 @@ export const patchTask = (id, updates) => {
   
 };
 
+
+
 export const putTask = (id, updatedTask) => {
   const tasks = getTasks();
   const taskIndex = tasks.findIndex((task) => task.id === id);
@@ -40,6 +42,7 @@ export const putTask = (id, updatedTask) => {
     tasks[taskIndex] = updatedTask;
     saveTasks(tasks);
   }
+  
   location.reload(); // Or better, re-render tasks without reloading
 };
 
