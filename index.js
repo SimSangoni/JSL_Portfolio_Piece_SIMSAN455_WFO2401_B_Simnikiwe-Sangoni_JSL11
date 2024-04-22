@@ -116,6 +116,7 @@ function filterAndDisplayTasksByBoard(boardName) {
 
 
 function refreshTasksUI() {
+
   filterAndDisplayTasksByBoard(activeBoard);
 }
 
@@ -234,7 +235,7 @@ function addTask(event) {
       refreshTasksUI();
     }
 
-    location.reload();
+    // location.reload();
 }
 
 
@@ -263,7 +264,7 @@ function toggleTheme() {
 
 
 function openEditTaskModal(task) {
-  console.log(task);
+
 
   // Set task details in modal inputs
   const titleInput = document.getElementById('edit-task-title-input');
@@ -325,7 +326,7 @@ function saveTaskChanges(taskId) {
 
 
   // Close the modal and refresh the UI to reflect the changes
-  location.reload();
+  // location.reload();
   toggleModal(false, elements.editTaskModal);
   refreshTasksUI();
  
