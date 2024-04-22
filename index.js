@@ -72,9 +72,9 @@ function displayBoards(boards) {
 }
 
 const columnTitles = {
-  todo: "TODO",
-  doing: "DOING",
-  done: "DONE"
+  todo: "todo",
+  doing: "doing",
+  done: "done"
 };
 
 // Filters tasks corresponding to the board name and displays them on the DOM.
@@ -207,8 +207,6 @@ function toggleModal(show, modal = elements.modalWindow) {
 
 function addTask(event) {
   event.preventDefault(); 
-  const tasksString = localStorage.getItem('tasks');
-  const tasksArray = JSON.parse(tasksString);
 
   //Assign user input to the task object
 
@@ -234,7 +232,6 @@ function addTask(event) {
       event.target.reset();
       refreshTasksUI();
     }
-    console.log(tasksArray);
 }
 
 
@@ -263,9 +260,6 @@ function toggleTheme() {
 
 
 function openEditTaskModal(task) {
-const tasksString = localStorage.getItem('tasks');
-const tasksArray = JSON.parse(tasksString);
-
 
   // Set task details in modal inputs
   const titleInput = document.getElementById('edit-task-title-input');
@@ -294,8 +288,8 @@ const tasksArray = JSON.parse(tasksString);
     toggleModal(false, elements.editTaskModal);
     refreshTasksUI();
   });
+
   refreshTasksUI();
-  console.log(tasksArray);
   toggleModal(true, elements.editTaskModal); // Show the edit task modal
 }
 
@@ -308,7 +302,6 @@ function saveTaskChanges(taskId) {
 
   // Create an object with the updated task details
   const updatedTask = {
-    // id: taskId,
     title: titleInput,
     description: descriptionInput,
     status: statusInput
@@ -344,3 +337,4 @@ const tasksString = localStorage.getItem('tasks');
 const tasksArray = JSON.parse(tasksString);
 
 console.log(tasksArray);
+// localStorage.clear();
