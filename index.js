@@ -207,6 +207,8 @@ function toggleModal(show, modal = elements.modalWindow) {
 
 function addTask(event) {
   event.preventDefault(); 
+  const tasksString = localStorage.getItem('tasks');
+  const tasksArray = JSON.parse(tasksString);
 
   //Assign user input to the task object
 
@@ -232,6 +234,7 @@ function addTask(event) {
       event.target.reset();
       refreshTasksUI();
     }
+    console.log(tasksArray);
 }
 
 
@@ -260,14 +263,18 @@ function toggleTheme() {
 
 
 function openEditTaskModal(task) {
+const tasksString = localStorage.getItem('tasks');
+const tasksArray = JSON.parse(tasksString);
+
+
   // Set task details in modal inputs
-  // const titleInput = document.getElementById('title-input');
-  // const descriptionInput = document.getElementById('desc-input');
-  // const statusSelect = document.getElementById('select-status');
-// Come back to revise this section
-  // titleInput.value = task.title;
-  // descriptionInput.value = task.description;
-  // statusSelect.value = task.status;
+  const titleInput = document.getElementById('edit-task-title-input');
+  const descriptionInput = document.getElementById('edit-task-desc-input');
+  const statusSelect = document.getElementById('edit-select-status');
+
+  titleInput.value = task.title;
+  descriptionInput.value = task.description;
+  statusSelect.value = task.status;
 
   // Get button elements from the task modal
   const saveChangesBtn = document.getElementById('save-task-changes-btn');
@@ -276,7 +283,7 @@ function openEditTaskModal(task) {
 
   // Call saveTaskChanges upon click of Save Changes button
   saveChangesBtn.addEventListener('click', () => {
-    saveTaskChanges(taskId)
+    saveTaskChanges(task.id)
     toggleModal(false, elements.editTaskModal);
     refreshTasksUI();
   });
@@ -287,31 +294,29 @@ function openEditTaskModal(task) {
     toggleModal(false, elements.editTaskModal);
     refreshTasksUI();
   });
-  
+  refreshTasksUI();
+  console.log(tasksArray);
   toggleModal(true, elements.editTaskModal); // Show the edit task modal
 }
 
 function saveTaskChanges(taskId) {
   // Get new user inputs
-  // const titleInput = document.getElementById('edit-task-title-input');
-  // const descriptionInput = document.getElementById('edit-task-description');
-  // const statusSelect = document.getElementById('select-status');
+  const titleInput = document.getElementById('edit-task-title-input').value;
+  const descriptionInput = document.getElementById('edit-task-desc-input').value;
+  const statusInput = document.getElementById('edit-select-status').value;
 
 
   // Create an object with the updated task details
-  // const updatedTitle = titleInput.value;
-  // const updatedDescription = descriptionInput.value;
-  // const updatedStatus = statusInput.value;
-
-  // const updatedTask = {
-  //   id: taskId,
-  //   title: updatedTitle,
-  //   description: updatedDescription,
-  //   status: updatedStatus
-  // }; 
+  const updatedTask = {
+    // id: taskId,
+    title: titleInput,
+    description: descriptionInput,
+    status: statusInput
+  };
   
 
-  // Update task using a hlper functoin
+  // Update task using a helper functoin
+  patchTask(taskId, updatedTask);
   // putTask(taskId, updatedTask);
 
   // Close the modal and refresh the UI to reflect the changes
