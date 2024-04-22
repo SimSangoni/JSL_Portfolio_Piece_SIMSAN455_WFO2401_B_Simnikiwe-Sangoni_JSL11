@@ -262,17 +262,21 @@ function toggleTheme() {
  
 }
 
+// function findTaskElementById(taskId) {
+//   return document.querySelector(`[data-task-id="${taskId}"]`);
+// }
 
 
 function openEditTaskModal(task) {
 
 
-
+  
   // Set task details in modal inputs
   const titleInput = document.getElementById('edit-task-title-input');
   const descriptionInput = document.getElementById('edit-task-desc-input');
   const statusSelect = document.getElementById('edit-select-status');
 
+  const taskId = task.id;
 
   titleInput.value = task.title;
   descriptionInput.value = task.description;
@@ -287,14 +291,13 @@ function openEditTaskModal(task) {
 
   // Call saveTaskChanges upon click of Save Changes button
   saveChangesBtn.addEventListener('click', () => {
-    saveTaskChanges(task.id);
-    toggleModal(false, elements.editTaskModal);
-    refreshTasksUI();
+    saveTaskChanges(taskId);
+    console.log(taskId)
   });
 
   // Delete task using a helper function and close the task modal
   deleteTaskBtn.addEventListener('click', () => {
-    deleteTask(task.id);
+    deleteTask(taskId);
     toggleModal(false, elements.editTaskModal);
     refreshTasksUI();
   });
@@ -306,8 +309,6 @@ function openEditTaskModal(task) {
 }
 
 function saveTaskChanges(taskId) {
-
-  
 
   // Get new user inputs
   const titleInput = document.getElementById('edit-task-title-input').value;
