@@ -236,7 +236,7 @@ function addTask(event) {
       refreshTasksUI();
     }
 
-    // location.reload();
+    location.reload();
 }
 
 
@@ -266,9 +266,6 @@ function toggleTheme() {
 
 function openEditTaskModal(task) {
 
-  document.getElementById('edit-task-title-input').value = '';
-  document.getElementById('edit-task-desc-input').value = '';
-  document.getElementById('edit-select-status').value = '';
 
 
   // Set task details in modal inputs
@@ -309,6 +306,9 @@ function openEditTaskModal(task) {
 }
 
 function saveTaskChanges(taskId) {
+
+  
+
   // Get new user inputs
   const titleInput = document.getElementById('edit-task-title-input').value;
   const descriptionInput = document.getElementById('edit-task-desc-input').value;
@@ -327,11 +327,11 @@ function saveTaskChanges(taskId) {
   
 
   // Update task using a helper functoin
-  putTask(taskId, updatedTask);
+  patchTask(taskId, updatedTask);
 
 
   // Close the modal and refresh the UI to reflect the changes
-  // location.reload();
+  location.reload();
   toggleModal(false, elements.editTaskModal);
   refreshTasksUI();
  
