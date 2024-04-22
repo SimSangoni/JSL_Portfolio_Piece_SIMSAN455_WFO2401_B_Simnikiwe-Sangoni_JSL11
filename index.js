@@ -118,6 +118,7 @@ function filterAndDisplayTasksByBoard(boardName) {
 function refreshTasksUI() {
 
   filterAndDisplayTasksByBoard(activeBoard);
+
 }
 
 // Styles the active board by adding an active class
@@ -235,7 +236,7 @@ function addTask(event) {
       refreshTasksUI();
     }
 
-    location.reload();
+    // location.reload();
 }
 
 
@@ -264,6 +265,10 @@ function toggleTheme() {
 
 
 function openEditTaskModal(task) {
+
+  document.getElementById('edit-task-title-input').value = '';
+  document.getElementById('edit-task-desc-input').value = '';
+  document.getElementById('edit-select-status').value = '';
 
 
   // Set task details in modal inputs
@@ -313,7 +318,7 @@ function saveTaskChanges(taskId) {
 // console.log(taskId)
   // Create an object with the updated task details
   const updatedTask = {
-    "id": taskId,
+    // "id": taskId,
     "title": titleInput,
     "description": descriptionInput,
     "status": statusInput,
@@ -326,7 +331,7 @@ function saveTaskChanges(taskId) {
 
 
   // Close the modal and refresh the UI to reflect the changes
-  location.reload();
+  // location.reload();
   toggleModal(false, elements.editTaskModal);
   refreshTasksUI();
  

@@ -29,6 +29,7 @@ export const patchTask = (id, updates) => {
       // Previously: location.reload(); Now: We'll refresh the UI instead.
 
   }
+  console.log(tasks)
   return tasks; // Optionally return the updated tasks list for further processing
   
 };
