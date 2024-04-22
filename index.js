@@ -263,6 +263,7 @@ function toggleTheme() {
 
 
 function openEditTaskModal(task) {
+  console.log(task);
 
   // Set task details in modal inputs
   const titleInput = document.getElementById('edit-task-title-input');
@@ -322,11 +323,9 @@ function saveTaskChanges(taskId) {
   // Update task using a helper functoin
   patchTask(taskId, updatedTask);
 
-  
 
-  
   // Close the modal and refresh the UI to reflect the changes
-  // location.reload();
+  location.reload();
   toggleModal(false, elements.editTaskModal);
   refreshTasksUI();
  
