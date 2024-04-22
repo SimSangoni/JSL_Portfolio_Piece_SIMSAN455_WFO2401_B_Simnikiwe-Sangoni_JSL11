@@ -235,7 +235,7 @@ function addTask(event) {
       refreshTasksUI();
     }
 
-    // location.reload();
+    location.reload();
 }
 
 
@@ -326,7 +326,7 @@ function saveTaskChanges(taskId) {
 
 
   // Close the modal and refresh the UI to reflect the changes
-  // location.reload();
+  location.reload();
   toggleModal(false, elements.editTaskModal);
   refreshTasksUI();
  
