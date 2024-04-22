@@ -27,6 +27,7 @@ export const patchTask = (id, updates) => {
       tasks[taskIndex] = { ...tasks[taskIndex], ...updates };
       saveTasks(tasks);
       // Previously: location.reload(); Now: We'll refresh the UI instead.
+
   }
   return tasks; // Optionally return the updated tasks list for further processing
 };

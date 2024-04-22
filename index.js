@@ -77,6 +77,7 @@ const columnTitles = {
   done: "done"
 };
 
+
 // Filters tasks corresponding to the board name and displays them on the DOM.
 // TASK: Fix Bugs
 function filterAndDisplayTasksByBoard(boardName) {
@@ -218,10 +219,10 @@ function addTask(event) {
 
     const task = {
 
-      title: titleInput,
-      description: descriptionInput,
-      status: statusInput,
-      board: boardName
+      "title": titleInput,
+      "description": descriptionInput,
+      "status": statusInput,
+      "board": boardName
     };
 
     const newTask = createNewTask(task);
@@ -232,6 +233,8 @@ function addTask(event) {
       event.target.reset();
       refreshTasksUI();
     }
+
+    location.reload();
 }
 
 
@@ -266,9 +269,12 @@ function openEditTaskModal(task) {
   const descriptionInput = document.getElementById('edit-task-desc-input');
   const statusSelect = document.getElementById('edit-select-status');
 
+
   titleInput.value = task.title;
   descriptionInput.value = task.description;
   statusSelect.value = task.status;
+
+
 
   // Get button elements from the task modal
   const saveChangesBtn = document.getElementById('save-task-changes-btn');
@@ -277,7 +283,7 @@ function openEditTaskModal(task) {
 
   // Call saveTaskChanges upon click of Save Changes button
   saveChangesBtn.addEventListener('click', () => {
-    saveTaskChanges(task.id)
+    saveTaskChanges(task.id);
     toggleModal(false, elements.editTaskModal);
     refreshTasksUI();
   });
@@ -289,8 +295,10 @@ function openEditTaskModal(task) {
     refreshTasksUI();
   });
 
-  refreshTasksUI();
+
+
   toggleModal(true, elements.editTaskModal); // Show the edit task modal
+  refreshTasksUI();
 }
 
 function saveTaskChanges(taskId) {
@@ -298,23 +306,30 @@ function saveTaskChanges(taskId) {
   const titleInput = document.getElementById('edit-task-title-input').value;
   const descriptionInput = document.getElementById('edit-task-desc-input').value;
   const statusInput = document.getElementById('edit-select-status').value;
+  const boardName = elements.headerBoardName.textContent;
 
-
+// console.log(taskId)
   // Create an object with the updated task details
   const updatedTask = {
-    title: titleInput,
-    description: descriptionInput,
-    status: statusInput
+    "id": taskId,
+    "title": titleInput,
+    "description": descriptionInput,
+    "status": statusInput,
+    "board": boardName
   };
   
 
   // Update task using a helper functoin
   patchTask(taskId, updatedTask);
-  // putTask(taskId, updatedTask);
 
+  
+
+  
   // Close the modal and refresh the UI to reflect the changes
+  // location.reload();
   toggleModal(false, elements.editTaskModal);
   refreshTasksUI();
+ 
 }
 
 
@@ -330,11 +345,13 @@ function init() {
   toggleSidebar(showSidebar);
   const isLightTheme = localStorage.getItem('light-theme') === 'enabled';
   document.body.classList.toggle('light-theme', isLightTheme);
+  elements.themeSwitch.checked = isLightTheme;
   fetchAndDisplayBoardsAndTasks(); // Initial display of boards and tasks
 }
-
+// clear()
 const tasksString = localStorage.getItem('tasks');
 const tasksArray = JSON.parse(tasksString);
 
 console.log(tasksArray);
+
 // localStorage.clear();
