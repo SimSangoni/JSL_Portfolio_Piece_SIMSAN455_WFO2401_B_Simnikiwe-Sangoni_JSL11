@@ -1,5 +1,5 @@
 // TASK: import helper functions from utils
-import { getTasks, createNewTask, patchTask, putTask, deleteTask } from "./utils/taskFunctions.js";
+import { getTasks, createNewTask, patchTask, deleteTask } from "./utils/taskFunctions.js";
 // TASK: import initialData
 import { initialData } from "./initialData.js"; 
 
@@ -235,8 +235,6 @@ function addTask(event) {
       event.target.reset();
       refreshTasksUI();
     }
-
-    location.reload();
 }
 
 
@@ -276,7 +274,6 @@ function openEditTaskModal(task) {
   const descriptionInput = document.getElementById('edit-task-desc-input');
   const statusSelect = document.getElementById('edit-select-status');
 
-  const taskId = task.id;
 
   titleInput.value = task.title;
   descriptionInput.value = task.description;
@@ -291,13 +288,12 @@ function openEditTaskModal(task) {
 
   // Call saveTaskChanges upon click of Save Changes button
   saveChangesBtn.addEventListener('click', () => {
-    saveTaskChanges(taskId);
-    console.log(taskId)
+    saveTaskChanges(task.id);
   });
 
   // Delete task using a helper function and close the task modal
   deleteTaskBtn.addEventListener('click', () => {
-    deleteTask(taskId);
+    deleteTask(task.id);
     toggleModal(false, elements.editTaskModal);
     refreshTasksUI();
   });
@@ -319,7 +315,7 @@ function saveTaskChanges(taskId) {
 // console.log(taskId)
   // Create an object with the updated task details
   const updatedTask = {
-    // "id": taskId,
+    "id": taskId,
     "title": titleInput,
     "description": descriptionInput,
     "status": statusInput,
@@ -330,9 +326,16 @@ function saveTaskChanges(taskId) {
   // Update task using a helper functoin
   patchTask(taskId, updatedTask);
 
+  // Print localStorage array after change
+  clear()
+  const tasksString = localStorage.getItem('tasks');
+  const tasksArray = JSON.parse(tasksString);
+
+  console.log(tasksArray);
+  console.log(taskId)
+
 
   // Close the modal and refresh the UI to reflect the changes
-  location.reload();
   toggleModal(false, elements.editTaskModal);
   refreshTasksUI();
  
