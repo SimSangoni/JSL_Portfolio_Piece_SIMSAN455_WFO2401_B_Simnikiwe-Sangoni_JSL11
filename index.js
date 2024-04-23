@@ -1,5 +1,5 @@
 // TASK: import helper functions from utils
-import { getTasks, createNewTask, patchTask, putTask, deleteTask } from "./utils/taskFunctions.js";
+import { getTasks, createNewTask, patchTask, deleteTask } from "./utils/taskFunctions.js";
 // TASK: import initialData
 import { initialData } from "./initialData.js"; 
 
@@ -282,6 +282,7 @@ function openEditTaskModal(task) {
   const deleteTaskBtn = document.getElementById('delete-task-btn');
 
 
+
   // Call saveTaskChanges upon click of Save Changes button
   saveChangesBtn.addEventListener('click', () => {
     saveTaskChanges(task.id);
@@ -309,7 +310,6 @@ function saveTaskChanges(taskId) {
   const statusInput = document.getElementById('edit-select-status').value;
   const boardName = elements.headerBoardName.textContent;
 
-// console.log(taskId)
   // Create an object with the updated task details
   const updatedTask = {
     "id": taskId,
@@ -321,14 +321,7 @@ function saveTaskChanges(taskId) {
   
 
   // Update task using a helper functoin
-  putTask(taskId, updatedTask);
-
-  // Print localStorage array after change
-  // clear()
-  const tasksString = localStorage.getItem('tasks');
-  const tasksArray = JSON.parse(tasksString);
-
-  console.log(tasksArray);
+  patchTask(taskId, updatedTask);
 
 
   // Close the modal and refresh the UI to reflect the changes
