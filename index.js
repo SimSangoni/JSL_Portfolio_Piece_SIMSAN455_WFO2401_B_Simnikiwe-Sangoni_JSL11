@@ -260,10 +260,6 @@ function toggleTheme() {
  
 }
 
-// function findTaskElementById(taskId) {
-//   return document.querySelector(`[data-task-id="${taskId}"]`);
-// }
-
 
 function openEditTaskModal(task) {
 
