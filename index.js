@@ -1,5 +1,5 @@
 // TASK: import helper functions from utils
-import { getTasks, createNewTask, patchTask, deleteTask } from "./utils/taskFunctions.js";
+import { getTasks, createNewTask, patchTask, putTask, deleteTask } from "./utils/taskFunctions.js";
 // TASK: import initialData
 import { initialData } from "./initialData.js"; 
 
@@ -325,10 +325,10 @@ function saveTaskChanges(taskId) {
   
 
   // Update task using a helper functoin
-  patchTask(taskId, updatedTask);
+  putTask(taskId, updatedTask);
 
   // Print localStorage array after change
-  clear()
+  // clear()
   const tasksString = localStorage.getItem('tasks');
   const tasksArray = JSON.parse(tasksString);
 
