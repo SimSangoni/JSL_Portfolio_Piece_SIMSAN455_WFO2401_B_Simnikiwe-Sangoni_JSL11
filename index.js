@@ -289,6 +289,7 @@ function openEditTaskModal(task) {
   // Call saveTaskChanges upon click of Save Changes button
   saveChangesBtn.addEventListener('click', () => {
     saveTaskChanges(task.id);
+    console.log(task.id);
   });
 
   // Delete task using a helper function and close the task modal
@@ -332,7 +333,6 @@ function saveTaskChanges(taskId) {
   const tasksArray = JSON.parse(tasksString);
 
   console.log(tasksArray);
-  console.log(taskId)
 
 
   // Close the modal and refresh the UI to reflect the changes
