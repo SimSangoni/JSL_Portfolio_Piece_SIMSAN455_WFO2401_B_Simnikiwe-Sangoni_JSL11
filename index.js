@@ -164,7 +164,10 @@ function addTaskToUI(task) {
 function setupEventListeners() {
   // Cancel editing task event listener
   const cancelEditBtn = document.getElementById('cancel-edit-btn');
-  cancelEditBtn.addEventListener('click', () => toggleModal(false, elements.editTaskModal));
+  cancelEditBtn.addEventListener('click', toggleModal(false, elements.editTaskModal));
+
+
+  // getEventListeners(document.getElementById('cancel-edit-btn'))
 
   // Cancel adding new task event listener
   const cancelAddTaskBtn = document.getElementById('cancel-add-task-btn');
@@ -265,9 +268,12 @@ function toggleTheme() {
  
 }
 
+
 let deleteTaskListenerAdded = false;
 
+
 function openEditTaskModal(task) {
+
   const titleInput = document.getElementById('edit-task-title-input');
   const descriptionInput = document.getElementById('edit-task-desc-input');
   const statusSelect = document.getElementById('edit-select-status');
@@ -275,6 +281,7 @@ function openEditTaskModal(task) {
   titleInput.value = task.title;
   descriptionInput.value = task.description;
   statusSelect.value = task.status;
+
 
   const saveChangesHandler = () => {
     saveTaskChanges(task.id);
@@ -284,6 +291,7 @@ function openEditTaskModal(task) {
   const saveChangesBtn = document.getElementById('save-task-changes-btn');
   saveChangesBtn.removeEventListener('click', saveChangesHandler);
   saveChangesBtn.addEventListener('click', once(saveChangesHandler));
+
 
   function onDeleteTaskClick() {
     if (deleteTaskListenerAdded) {
