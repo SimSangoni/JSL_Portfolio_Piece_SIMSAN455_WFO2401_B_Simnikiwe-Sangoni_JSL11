@@ -329,6 +329,7 @@ function openEditTaskModal(task) {
     };
   }
 }
+
 function saveTaskChanges(taskId) {
 
   // Get new user inputs
