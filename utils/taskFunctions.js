@@ -29,7 +29,7 @@ export const patchTask = (id, updates) => {
       // Previously: location.reload(); Now: We'll refresh the UI instead.
 
   }
-  console.log(tasks)
+  // console.log(tasks)
   return tasks; // Optionally return the updated tasks list for further processing
   
 };
@@ -50,6 +50,7 @@ export const deleteTask = (id) => {
   const tasks = getTasks();
   const updatedTasks = tasks.filter(task => task.id !== id);
   saveTasks(updatedTasks);
+  // console.log(tasks);
   // Previously: location.reload(); Now: We'll refresh the UI instead.
   return updatedTasks; // Optionally return the updated tasks list for further processing
 };

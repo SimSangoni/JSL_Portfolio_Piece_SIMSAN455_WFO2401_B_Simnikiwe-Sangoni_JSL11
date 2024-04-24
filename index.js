@@ -231,6 +231,11 @@ function addTask(event) {
     if (newTask) {
       addTaskToUI(newTask);
       toggleModal(false);
+      console.clear()
+      const tasksString = localStorage.getItem('tasks');
+      const tasksArray = JSON.parse(tasksString);
+      console.log(tasksArray);
+      console.log(`"${newTask.title}" added.`);
       elements.filterDiv.style.display = 'none'; // Also hide the filter overlay
       event.target.reset();
       refreshTasksUI();
@@ -260,9 +265,9 @@ function toggleTheme() {
  
 }
 
+let deleteTaskListenerAdded = false;
 
 function openEditTaskModal(task) {
-  // Set task details in modal inputs
   const titleInput = document.getElementById('edit-task-title-input');
   const descriptionInput = document.getElementById('edit-task-desc-input');
   const statusSelect = document.getElementById('edit-select-status');
@@ -271,63 +276,51 @@ function openEditTaskModal(task) {
   descriptionInput.value = task.description;
   statusSelect.value = task.status;
 
-  // Define the event listener function for saving changes
   const saveChangesHandler = () => {
     saveTaskChanges(task.id);
-    console.log(task.id);
+    console.log(`"${task.title}" edited.`);
   };
 
-  // Define the event listener function for deleting the task
-  const deleteTaskHandler = () => {
+  const saveChangesBtn = document.getElementById('save-task-changes-btn');
+  saveChangesBtn.removeEventListener('click', saveChangesHandler);
+  saveChangesBtn.addEventListener('click', once(saveChangesHandler));
+
+  function onDeleteTaskClick() {
+    if (deleteTaskListenerAdded) {
+        document.getElementById("delete-task-btn").removeEventListener("click", onDeleteTaskClick);
+        deleteTaskListenerAdded = false;
+    }
+
     deleteTask(task.id);
+    console.log(`"${task.title}" deleted.`);
     toggleModal(false, elements.editTaskModal);
     refreshTasksUI();
-  };
+  }
 
-  // Get the button elements for saving changes and deleting the task
-  const saveChangesBtn = document.getElementById('save-task-changes-btn');
-  const deleteTaskBtn = document.getElementById('delete-task-btn');
+  if (!deleteTaskListenerAdded) {
+    document.getElementById("delete-task-btn").addEventListener("click", onDeleteTaskClick);
+    deleteTaskListenerAdded = true;
+  }
 
-  // Remove any existing event listeners on the Save Changes button
-  saveChangesBtn.removeEventListener('click', saveChangesHandler);
-  // Remove any existing event listeners on the Delete Task button
-  deleteTaskBtn.removeEventListener('click', deleteTaskHandler);
+  // This is to log out the local storage array:
+  console.clear();
+  const tasksString = localStorage.getItem('tasks');
+  const tasksArray = JSON.parse(tasksString);
 
-  // Add event listeners to the Save Changes and Delete Task buttons
-  saveChangesBtn.addEventListener(
-    'click',
-    saveChangesHandlerOnce(saveChangesHandler)
-  );
-  deleteTaskBtn.addEventListener(
-    'click',
-    deleteTaskHandlerOnce(deleteTaskHandler)
-  );
+  console.log(tasksArray);
 
-  // Show the edit task modal
   toggleModal(true, elements.editTaskModal);
   refreshTasksUI();
+}
 
-  // Helper function to ensure the save changes handler is only added once
-  function saveChangesHandlerOnce(handler) {
-    let executed = false;
-    return function () {
-      if (!executed) {
-        executed = true;
-        handler();
-      }
-    };
-  }
-
-  // Helper function to ensure the delete task handler is only added once
-  function deleteTaskHandlerOnce(handler) {
-    let executed = false;
-    return function () {
-      if (!executed) {
-        executed = true;
-        handler();
-      }
-    };
-  }
+function once(handler) {
+  let executed = false;
+  return function () {
+    if (!executed) {
+      executed = true;
+      handler();
+    }
+  };
 }
 
 function saveTaskChanges(taskId) {
@@ -374,10 +367,9 @@ function init() {
   elements.themeSwitch.checked = isLightTheme;
   fetchAndDisplayBoardsAndTasks(); // Initial display of boards and tasks
 }
-// clear()
+console.clear()
 const tasksString = localStorage.getItem('tasks');
 const tasksArray = JSON.parse(tasksString);
-
 console.log(tasksArray);
 
 // localStorage.clear();
