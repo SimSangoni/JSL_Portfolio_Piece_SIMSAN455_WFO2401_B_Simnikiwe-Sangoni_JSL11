@@ -164,7 +164,7 @@ function addTaskToUI(task) {
 function setupEventListeners() {
   // Cancel editing task event listener
   const cancelEditBtn = document.getElementById('cancel-edit-btn');
-  cancelEditBtn.addEventListener('click', toggleModal(false, elements.editTaskModal));
+  cancelEditBtn.addEventListener('click', ()=> toggleModal(false, elements.editTaskModal));
 
 
   // getEventListeners(document.getElementById('cancel-edit-btn'))
@@ -271,7 +271,6 @@ function toggleTheme() {
 
 let deleteTaskListenerAdded = false;
 
-
 function openEditTaskModal(task) {
 
   const titleInput = document.getElementById('edit-task-title-input');
@@ -292,10 +291,11 @@ function openEditTaskModal(task) {
   saveChangesBtn.removeEventListener('click', saveChangesHandler);
   saveChangesBtn.addEventListener('click', once(saveChangesHandler));
 
-
+  const deleteTaskBtn = document.getElementById('delete-task-btn');
+ 
   function onDeleteTaskClick() {
     if (deleteTaskListenerAdded) {
-        document.getElementById("delete-task-btn").removeEventListener("click", onDeleteTaskClick);
+      deleteTaskBtn.removeEventListener("click", onDeleteTaskClick);
         deleteTaskListenerAdded = false;
     }
 
@@ -306,17 +306,17 @@ function openEditTaskModal(task) {
   }
 
   if (!deleteTaskListenerAdded) {
-    document.getElementById("delete-task-btn").addEventListener("click", onDeleteTaskClick);
+    deleteTaskBtn.addEventListener("click", onDeleteTaskClick);
     deleteTaskListenerAdded = true;
   }
 
-  // This is to log out the local storage array:
-  console.clear();
+  // This is to log out the local storage array on the console:
+  // console.clear();
   const tasksString = localStorage.getItem('tasks');
   const tasksArray = JSON.parse(tasksString);
 
   console.log(tasksArray);
-
+  console.log(`${task.title} modal window opened.`);
   toggleModal(true, elements.editTaskModal);
   refreshTasksUI();
 }
