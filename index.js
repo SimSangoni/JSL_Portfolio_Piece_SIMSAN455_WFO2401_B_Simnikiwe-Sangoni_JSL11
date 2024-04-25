@@ -269,10 +269,10 @@ function toggleTheme() {
 }
 
 
-let deleteTaskListenerAdded = false;
+// let deleteTaskListenerAdded = false;
 
 function openEditTaskModal(task) {
-
+  // Set task details in modal inputs
   const titleInput = document.getElementById('edit-task-title-input');
   const descriptionInput = document.getElementById('edit-task-desc-input');
   const statusSelect = document.getElementById('edit-select-status');
@@ -281,56 +281,54 @@ function openEditTaskModal(task) {
   descriptionInput.value = task.description;
   statusSelect.value = task.status;
 
-
+  // Define the event listener function for saving changes
   const saveChangesHandler = () => {
     saveTaskChanges(task.id);
-    console.log(`"${task.title}" edited.`);
+    console.log(task.id);
   };
 
-  const saveChangesBtn = document.getElementById('save-task-changes-btn');
-  saveChangesBtn.removeEventListener('click', saveChangesHandler);
-  saveChangesBtn.addEventListener('click', once(saveChangesHandler));
-
-  const deleteTaskBtn = document.getElementById('delete-task-btn');
- 
-  function onDeleteTaskClick() {
-    if (deleteTaskListenerAdded) {
-      deleteTaskBtn.removeEventListener("click", onDeleteTaskClick);
-        deleteTaskListenerAdded = false;
-    }
-
+  // Define the event listener function for deleting the task
+  const deleteTaskHandler = () => {
     deleteTask(task.id);
-    console.log(`"${task.title}" deleted.`);
     toggleModal(false, elements.editTaskModal);
     refreshTasksUI();
-  }
+  };
 
-  if (!deleteTaskListenerAdded) {
-    deleteTaskBtn.addEventListener("click", onDeleteTaskClick);
-    deleteTaskListenerAdded = true;
-  }
+  // Get the button elements for saving changes and deleting the task
+  const saveChangesBtn = document.getElementById('save-task-changes-btn');
+  const deleteTaskBtn = document.getElementById('delete-task-btn');
 
-  // This is to log out the local storage array on the console:
-  // console.clear();
-  const tasksString = localStorage.getItem('tasks');
-  const tasksArray = JSON.parse(tasksString);
+  // Remove any existing event listeners on the Save Changes button
+  saveChangesBtn.removeEventListener('click', saveChangesHandler);
+  // Remove any existing event listeners on the Delete Task button
+  deleteTaskBtn.removeEventListener('click', deleteTaskHandler);
 
-  console.log(tasksArray);
-  console.log(`${task.title} modal window opened.`);
+  // Add event listeners to the Save Changes and Delete Task buttons
+  saveChangesBtn.addEventListener(
+    'click',
+    once(saveChangesHandler)
+  );
+  deleteTaskBtn.addEventListener(
+    'click',
+    once(deleteTaskHandler)
+  );
+
+  // Show the edit task modal
   toggleModal(true, elements.editTaskModal);
   refreshTasksUI();
-}
 
-function once(handler) {
-  let executed = false;
-  return function () {
-    if (!executed) {
-      executed = true;
-      handler();
-    }
-  };
+  // Helper function to ensure the save changes handler is only added once
+  function once(handler) {
+    let executed = false;
+    return function () {
+      if (!executed) {
+        executed = true;
+        handler();
+      }
+    };
+  }
+  
 }
-
 function saveTaskChanges(taskId) {
 
   // Get new user inputs

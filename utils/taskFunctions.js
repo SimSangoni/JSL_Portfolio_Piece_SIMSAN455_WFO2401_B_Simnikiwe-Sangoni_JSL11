@@ -9,6 +9,7 @@ export const getTasks = () => {
 // Simulate saving tasks to localStorage
 const saveTasks = (tasks) => {
   localStorage.setItem('tasks', JSON.stringify(tasks));
+  console.log(tasks);
 };
 
 export const createNewTask = (task) => {
