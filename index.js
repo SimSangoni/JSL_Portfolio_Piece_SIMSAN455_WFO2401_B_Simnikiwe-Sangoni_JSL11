@@ -269,7 +269,7 @@ function toggleTheme() {
 }
 
 
-// let deleteTaskListenerAdded = false;
+let deleteTaskListenerAdded = false;
 
 function openEditTaskModal(task) {
   // Set task details in modal inputs
@@ -287,32 +287,30 @@ function openEditTaskModal(task) {
     console.log(`${task.title} edited.`);
   };
 
-  // Define the event listener function for deleting the task
-  const deleteTaskHandler = () => {
-    deleteTask(task.id);
-    toggleModal(false, elements.editTaskModal);
-    console.log(`${task.title} deleted.`);
-    refreshTasksUI();
-  };
 
   // Get the button elements for saving changes and deleting the task
   const saveChangesBtn = document.getElementById('save-task-changes-btn');
-  const deleteTaskBtn = document.getElementById('delete-task-btn');
-
   // Remove any existing event listeners on the Save Changes button
   saveChangesBtn.removeEventListener('click', saveChangesHandler);
-  // Remove any existing event listeners on the Delete Task button
-  deleteTaskBtn.removeEventListener('click', deleteTaskHandler);
 
   // Add event listeners to the Save Changes and Delete Task buttons
-  saveChangesBtn.addEventListener(
-    'click',
-    once(saveChangesHandler)
-  );
-  deleteTaskBtn.addEventListener(
-    'click',
-    once(deleteTaskHandler)
-  );
+  saveChangesBtn.addEventListener('click', once(saveChangesHandler));
+
+
+  function onDeleteTaskClick() {
+    if (deleteTaskListenerAdded) {
+        document.getElementById("delete-task-btn").removeEventListener("click", onDeleteTaskClick);
+        deleteTaskListenerAdded = false;
+    }
+    deleteTask(task.id);
+    console.log(`"${task.title}" deleted.`);
+    toggleModal(false, elements.editTaskModal);
+    refreshTasksUI();
+  }
+  if (!deleteTaskListenerAdded) {
+    document.getElementById("delete-task-btn").addEventListener("click", onDeleteTaskClick);
+    deleteTaskListenerAdded = true;
+  }
 
   // Show the edit task modal
   toggleModal(true, elements.editTaskModal);
