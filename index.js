@@ -388,6 +388,8 @@ function init() {
   elements.themeSwitch.checked = isLightTheme;
   fetchAndDisplayBoardsAndTasks(); // Initial display of boards and tasks
 }
+
+
 console.clear()
 const tasksString = localStorage.getItem('tasks');
 const tasksArray = JSON.parse(tasksString);
