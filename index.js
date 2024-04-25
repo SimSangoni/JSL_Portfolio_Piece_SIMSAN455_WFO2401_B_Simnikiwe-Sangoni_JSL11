@@ -33,7 +33,8 @@ const elements = {
   modalWindow: document.getElementById("new-task-modal-window"), 
 }
 
-let activeBoard = ""
+let activeBoard = "";
+let selectedTask = {};
 
 // Extracts unique board names from tasks
 // TASK: FIX BUGS: ternary operator fix
@@ -106,7 +107,8 @@ function filterAndDisplayTasksByBoard(boardName) {
 
       // Listen for a click event on each task and open a modal
       taskElement.addEventListener('click', () => { 
-        openEditTaskModal(task);
+        selectedTask = task;
+        openEditTaskModal();
       });
 
       tasksContainer.appendChild(taskElement);
@@ -204,6 +206,12 @@ function setupEventListeners() {
 // Toggles tasks modal
 // Task: Fix bugs
 function toggleModal(show, modal = elements.modalWindow) {
+  
+  const saveChangesBtn = document.getElementById('save-task-changes-btn');
+  saveChangesBtn.removeEventListener('click', saveChangesHandler);
+  const deleteTaskBtn = document.getElementById("delete-task-btn");
+  deleteTaskBtn.removeEventListener('click', onDeleteTaskClick);
+
   modal.style.display = show ? 'block' : 'none'; 
 }
 
@@ -268,49 +276,50 @@ function toggleTheme() {
  
 }
 
+// Define the event listener function for saving changes
+const saveChangesHandler = () => {
+  saveTaskChanges(selectedTask.id);
+  console.log(`${selectedTask.title} edited.`);
+};
+
+function onDeleteTaskClick() {
+  if (deleteTaskListenerAdded) {
+    const deleteTaskBtn = document.getElementById("delete-task-btn");
+     deleteTaskBtn.removeEventListener("click", onDeleteTaskClick);
+      deleteTaskListenerAdded = false;
+  }
+  deleteTask(selectedTask.id);
+  console.log(`"${selectedTask.title}" deleted.`);
+  toggleModal(false, elements.editTaskModal);
+  refreshTasksUI();
+}
 
 let deleteTaskListenerAdded = false;
 
-function openEditTaskModal(task) {
+function openEditTaskModal() {
   // Set task details in modal inputs
   const titleInput = document.getElementById('edit-task-title-input');
   const descriptionInput = document.getElementById('edit-task-desc-input');
   const statusSelect = document.getElementById('edit-select-status');
 
-  titleInput.value = task.title;
-  descriptionInput.value = task.description;
-  statusSelect.value = task.status;
-
-  // Define the event listener function for saving changes
-  const saveChangesHandler = () => {
-    saveTaskChanges(task.id);
-    console.log(`${task.title} edited.`);
-  };
-
+  titleInput.value = selectedTask.title;
+  descriptionInput.value = selectedTask.description;
+  statusSelect.value = selectedTask.status;
 
   // Get the button elements for saving changes and deleting the task
   const saveChangesBtn = document.getElementById('save-task-changes-btn');
   // Remove any existing event listeners on the Save Changes button
-  saveChangesBtn.removeEventListener('click', saveChangesHandler);
-
+  // saveChangesBtn.removeEventListener('click', saveChangesHandler);
   // Add event listeners to the Save Changes and Delete Task buttons
   saveChangesBtn.addEventListener('click', once(saveChangesHandler));
 
+const deleteTaskBtn = document.getElementById("delete-task-btn");
 
-  function onDeleteTaskClick() {
-    if (deleteTaskListenerAdded) {
-        document.getElementById("delete-task-btn").removeEventListener("click", onDeleteTaskClick);
-        deleteTaskListenerAdded = false;
-    }
-    deleteTask(task.id);
-    console.log(`"${task.title}" deleted.`);
-    toggleModal(false, elements.editTaskModal);
-    refreshTasksUI();
-  }
-  if (!deleteTaskListenerAdded) {
-    document.getElementById("delete-task-btn").addEventListener("click", onDeleteTaskClick);
-    deleteTaskListenerAdded = true;
-  }
+if (!deleteTaskListenerAdded) {
+  deleteTaskBtn.addEventListener("click", once(onDeleteTaskClick));
+  deleteTaskListenerAdded = true;
+}
+
 
   // Show the edit task modal
   toggleModal(true, elements.editTaskModal);
