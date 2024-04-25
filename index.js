@@ -308,8 +308,7 @@ function openEditTaskModal() {
 
   // Get the button elements for saving changes and deleting the task
   const saveChangesBtn = document.getElementById('save-task-changes-btn');
-  // Remove any existing event listeners on the Save Changes button
-  // saveChangesBtn.removeEventListener('click', saveChangesHandler);
+
   // Add event listeners to the Save Changes and Delete Task buttons
   saveChangesBtn.addEventListener('click', once(saveChangesHandler));
 
