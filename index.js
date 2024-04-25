@@ -284,13 +284,14 @@ function openEditTaskModal(task) {
   // Define the event listener function for saving changes
   const saveChangesHandler = () => {
     saveTaskChanges(task.id);
-    console.log(task.id);
+    console.log(`${task.title} edited.`);
   };
 
   // Define the event listener function for deleting the task
   const deleteTaskHandler = () => {
     deleteTask(task.id);
     toggleModal(false, elements.editTaskModal);
+    console.log(`${task.title} deleted.`);
     refreshTasksUI();
   };
 
