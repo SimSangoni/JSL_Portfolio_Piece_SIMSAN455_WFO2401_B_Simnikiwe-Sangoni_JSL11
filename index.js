@@ -279,6 +279,10 @@ function toggleTheme() {
 // Define the event listener function for saving changes
 const saveChangesHandler = () => {
   saveTaskChanges(selectedTask.id);
+  console.clear()
+  const tasksString = localStorage.getItem('tasks');
+  const tasksArray = JSON.parse(tasksString);
+  console.log(tasksArray);
   console.log(`${selectedTask.title} edited.`);
 };
 
@@ -289,6 +293,10 @@ function onDeleteTaskClick() {
       deleteTaskListenerAdded = false;
   }
   deleteTask(selectedTask.id);
+  console.clear()
+  const tasksString = localStorage.getItem('tasks');
+  const tasksArray = JSON.parse(tasksString);
+  console.log(tasksArray);
   console.log(`"${selectedTask.title}" deleted.`);
   toggleModal(false, elements.editTaskModal);
   refreshTasksUI();
